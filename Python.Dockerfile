@@ -11,7 +11,7 @@ RUN apt-get update \
 
 # ADD Python-${PY_VERSION}.tgz .
 
-RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tgz && \
+RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tgz --no-check-certificate && \
     tar -zxvf Python-${PY_VERSION}.tgz && \
     rm Python-${PY_VERSION}.tgz && \
     ln -s /opt/Python-${PY_VERSION} /opt/Python && \
