@@ -7,18 +7,16 @@ before_install:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 # matrix
-system_core:
-  armhf
-  arm64
-py_version:
-  3.7.4
+env:
+  - CORE=armhf PY=3.7.4
+  - CORE=arm64 PY=3.7.4
 
 script:
   - |
-    docker build -t multiarm-python:${system_core}-${py_version} \
+    docker build -t multiarm-python:${CORE}-${PY} \
         --build-arg LOCAL_APT=no \
-        --build-arg CORE=${system_core} \
-        --build-arg PY_VERSION=${py_version}
+        --build-arg CORE=${CORE} \
+        --build-arg PY_VERSION=${PY}
 
 # deploy:
 #   provider: bash
