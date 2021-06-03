@@ -2,3 +2,4 @@
 !Python.Dockerfile
 !README.md
 !.*
+!docker_push

@@ -5,7 +5,7 @@ services:
 
 before_install:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 # matrix
 system_core:
   - armhf
@@ -20,8 +20,8 @@ script:
         --build-arg CORE=${system_core} \
         --build-arg PY_VERSION=${py_version}
 
-deploy:
-  provider: bash
-  script: docker push
-  on:
-    branch: master
+# deploy:
+#   provider: bash
+#   script: docker_push
+#   on:
+#     branch: master
