@@ -1,0 +1,27 @@
+language: bash
+
+services:
+  - docker
+
+before_install:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+# matrix
+system_core:
+  - armhf
+  - arm64
+py_version:
+  - 3.7.4
+
+script:
+  - |
+    docker build -t multiarm-python:${system}-${py_version} \
+        --build-arg LOCAL_APT=no \
+        --build-arg CORE=${system_core} \
+        --build-arg PY_VERSION=${py_version}
+
+deploy:
+  provider: bash
+  script: docker push
+  on:
+    branch: master
