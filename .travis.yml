@@ -8,10 +8,10 @@ before_install:
 
 # matrix
 system_core:
-  - armhf
-  - arm64
+  armhf
+  arm64
 py_version:
-  - 3.7.4
+  3.7.4
 
 script:
   - |
