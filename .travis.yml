@@ -15,7 +15,7 @@ py_version:
 
 script:
   - |
-    docker build -t multiarm-python:${system}-${py_version} \
+    docker build -t multiarm-python:${system_core}-${py_version} \
         --build-arg LOCAL_APT=no \
         --build-arg CORE=${system_core} \
         --build-arg PY_VERSION=${py_version}
