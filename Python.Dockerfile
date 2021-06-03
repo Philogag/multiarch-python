@@ -1,8 +1,4 @@
-FROM alpine
-
-ARG CORE=arm64
-
-FROM multiarch/ubuntu-core:${CORE}-focal
+FROM multiarch/ubuntu-core:CORE-focal
 
 WORKDIR /opt
 ARG PY_VERSION=3.7.4

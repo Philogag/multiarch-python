@@ -13,6 +13,7 @@ env:
 
 script:
   - |
+    sed -i 's/CORE/${CORE}/g' Python.Dockerfile && \
     docker build . -f Python.Dockerfile -t multiarm-python:${CORE}-${PY} \
         --build-arg LOCAL_APT=no \
         --build-arg CORE=${CORE} \
