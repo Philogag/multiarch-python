@@ -12,12 +12,7 @@ env:
   - CORE=arm64 PY=3.7.4
 
 script:
-  - |
-    sed -i "s/{CORE}/${CORE}/g" Python.Dockerfile && \
-    cat Python.Dockerfile && \
-    docker build . -f Python.Dockerfile -t $DOCKER_USERNAME/multiarh-python:${CORE}-${PY} \
-        --build-arg LOCAL_APT=no \
-        --build-arg PY_VERSION=${PY}
+  - bash build
 
 deploy:
   provider: script

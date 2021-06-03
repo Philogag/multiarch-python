@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function setCore(){
+    sed -i "s/{CORE}/${CORE}/g" $1
+}
+
+function checkpre(){
+    docker pull $DOCKER_USERNAME/multiarch-python:$CORE-none
+
+    if [ $? -ne 0 ]; then
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        setCore Pre.Dockerfile
+        docker build . -f Pre.Dockerfile -t $DOCKER_USERNAME/multiarch-python:$CORE-none --build-arg LOCAL_APT=no
+        docker push $DOCKER_USERNAME/multiarch-python:$CORE-none
+    fi
+}
+
+checkpre
+setCore Main.Dockerfile
+
+docker build . -f Main.Dockerfile -t $DOCKER_USERNAME/multiarch-python:${CORE}-${PY} \
+        --build-arg PY_VERSION=${PY}
+
+docker push $DOCKER_USERNAME/multiarch-python:$CORE-$PY
