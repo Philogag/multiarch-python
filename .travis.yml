@@ -15,12 +15,12 @@ script:
   - |
     sed -i "s/{CORE}/${CORE}/g" Python.Dockerfile && \
     cat Python.Dockerfile && \
-    docker build . -f Python.Dockerfile -t multiarm-python:${CORE}-${PY} \
+    docker build . -f Python.Dockerfile -t $DOCKER_USERNAME/multiarh-python:${CORE}-${PY} \
         --build-arg LOCAL_APT=no \
         --build-arg PY_VERSION=${PY}
 
-# deploy:
-#   provider: bash
-#   script: docker_push
-#   on:
-#     branch: master
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
