@@ -8,7 +8,7 @@ function checkpre(){
     docker pull $DOCKER_USERNAME/multiarch-python:$CORE-none
 
     if [ $? -ne 0 ]; then
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
         setCore Pre.Dockerfile
         docker build . -f Pre.Dockerfile -t $DOCKER_USERNAME/multiarch-python:$CORE-none --build-arg LOCAL_APT=no
         docker push $DOCKER_USERNAME/multiarch-python:$CORE-none
